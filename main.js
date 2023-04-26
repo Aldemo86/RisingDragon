@@ -29,7 +29,7 @@ function mainLoop(){
 
 function staminaAumento() {
         
-        gameData.stamina *= 10;
+        gameData.stamina ++;
         document.getElementById("staminaCounter").innerHTML = gameData.stamina;
     
 }
