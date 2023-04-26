@@ -10,7 +10,8 @@ var gameData = {
     dantianProgress: 0,
     bodyCost: 10,
     seaCost: 10,
-    dantianCost: 10
+    dantianCost: 10,
+    merits: 0
 }
 
 var materialRank = {
