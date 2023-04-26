@@ -1,5 +1,7 @@
 var gameData = {
-    stamina: 0,
+    rank: 1,
+    material: "Stone",
+    stamina: 1,
     body: 1,
     sea: 1,
     dantian: 1,
@@ -11,6 +13,14 @@ var gameData = {
     dantianCost: 10
 }
 
+var materialRank = {
+    stone: 0,
+    copper: 9,
+    iron: 18
+}
+
+
+
 setInterval(mainLoop, 1000);
 
 function mainLoop(){
@@ -18,10 +28,29 @@ function mainLoop(){
 }
 
 function staminaAumento() {
-    
-        gameData.stamina++;
+        
+        gameData.stamina *= 10;
         document.getElementById("staminaCounter").innerHTML = gameData.stamina;
     
+}
+
+function actualizarRango(){
+    if((gameData.body+gameData.sea+gameData.dantian) % 3 == 0){
+        if(gameData.material == "Iron" && gameData.rank == 9){}
+
+        else if(gameData.rank == 9){
+            if(gameData.material == "Stone"){
+                gameData.material = "Copper"
+            } else if(gameData.material == "Copper"){
+                gameData.material = "Iron"
+            }
+            gameData.rank = 1
+        }else{gameData.rank++}
+
+        
+    
+        document.getElementById("discipleRank").innerHTML = gameData.material + " " + gameData.rank
+    }
 }
 
 function bodyProgreso(){
@@ -31,6 +60,7 @@ function bodyProgreso(){
             gameData.body += 1
             gameData.bodyProgress = 0
             gameData.bodyCost *= 2
+            actualizarRango();
         } else{gameData.bodyProgress += 1}
         document.getElementById("body").innerHTML = "Body: " + gameData.body;
         document.getElementById("bodyUpgrade").innerHTML = "Progress: "+gameData.bodyProgress+"/"+10+", Cost: "+gameData.bodyCost;
@@ -46,6 +76,7 @@ function seaProgreso(){
             gameData.sea += 1
             gameData.seaProgress = 0
             gameData.seaCost *= 2
+            actualizarRango();
         } else{gameData.seaProgress += 1}
         document.getElementById("sea").innerHTML = "Sea: " + gameData.sea;
         document.getElementById("seaUpgrade").innerHTML = "Progress: "+gameData.seaProgress+"/"+10+", Cost: "+gameData.seaCost;
@@ -61,6 +92,7 @@ function dantianProgreso(){
             gameData.dantian += 1
             gameData.dantianProgress = 0
             gameData.dantianCost *= 2
+            actualizarRango();
         } else{gameData.dantianProgress += 1}
         document.getElementById("dantian").innerHTML = "Dantian: " + gameData.dantian;
         document.getElementById("dantianUpgrade").innerHTML = "Progress: "+gameData.dantianProgress+"/"+10+", Cost: "+gameData.dantianCost;
